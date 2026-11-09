@@ -119,6 +119,10 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
           <button class="link" id="allOn">すべて選択</button>
           <button class="link" id="allOff">すべて解除</button>
         </div>
+        <div class="row" style="margin-top:2px">
+          <button class="link" id="kisoOn">基礎科目をすべて選択</button>
+          <button class="link" id="rinshoOn">臨床科目をすべて選択</button>
+        </div>
       </div>
       <div class="card">
         <p class="label">出題範囲</p>
@@ -334,6 +338,10 @@ function renderHome(){
 $("subjChips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;const s=b.dataset.s;selSubj.has(s)?selSubj.delete(s):selSubj.add(s);renderHome();};
 $("allOn").onclick=()=>{subjects().forEach(s=>selSubj.add(s));renderHome();};
 $("allOff").onclick=()=>{selSubj.clear();renderHome();};
+const KISO=["医療倫理・行動科学","衛生・社会歯科","生化学","解剖・組織・発生","生理","微生物・免疫","病理","薬理","歯科理工"];
+const RINSHO=SUBJ_ORDER.filter(s=>!KISO.includes(s));
+$("kisoOn").onclick=()=>{selSubj.clear();KISO.forEach(s=>selSubj.add(s));renderHome();};
+$("rinshoOn").onclick=()=>{selSubj.clear();RINSHO.forEach(s=>selSubj.add(s));renderHome();};
 $("modeChips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;mode=b.dataset.mode;
   [...$("modeChips").children].forEach(x=>x.classList.toggle("on",x===b));renderHome();};
 $("kindChips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;kind=b.dataset.kind;
